@@ -23,3 +23,41 @@ You have been supplied with the dataset `netflix_data.csv`, along with the follo
 | `genre` | Show genre |
 
 # Code starts here 
+
+# Importing pandas and matplotlib
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read in the Netflix CSV as a DataFrame
+netflix_df = pd.read_csv("netflix_data.csv")
+
+#To create a dataset of the data provided
+nineties_movies = netflix_df[(netflix_df['release_year'] >= 1990) & (netflix_df['release_year'] <=1999)]
+print (nineties_movies)
+
+# Find the most frequent movie duration
+duration = nineties_movies['duration'].mode()
+print(duration)
+
+# Print the most frequent duration
+print('The most frequent movie duration in the 1990s: {duration[0]} minutes')
+
+
+#To display the distribution of movie durations as a histogram
+plt.hist(nineties_movies['duration'], bins=10, color='pink', edgecolor='black')
+plt.title('Distribution of Movie Durations in the 1990s')
+plt.xlabel('Duration in minutes')
+plt.ylabel('Frequency')
+plt.show()
+
+#Subset of action movies
+action_movies = netflix_df[netflix_df['genre'] == 'Action']
+print(action_movies)
+
+#Count the number of short action movies released in the 1990s 
+short_action_movies=action_movies[(action_movies ['duration'] < 90) &
+                                  (action_movies['release_year'] >= 1990) & 
+                                  (action_movies['release_year'] <=1999)
+]
+short_movie_count = len(short_action_movies)
+print(f'The number of short action movies released in the 1990s: {short_movie_count}')
